@@ -42,6 +42,8 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     pic,
+    averageCompletionTime: 0,
+    totalGamesPlayed: 0,
   });
 
   if (user) {
@@ -51,6 +53,8 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
       isAdmin: user.isAdmin,
       pic: user.pic,
+      averageCompletionTime: user.averageCompletionTime,
+      totalGamesPlayed: user.totalGamesPlayed,
       token: generateToken(user._id),
     });
   } else {
@@ -64,11 +68,7 @@ const registerUser = asyncHandler(async (req, res) => {
 //@access          Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  console.log(email)
   const user = await User.findOne({ email });
-  console.log(email)
-  console.log(user)
-
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
