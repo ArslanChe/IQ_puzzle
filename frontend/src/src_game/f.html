@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>METANIT.COM</title>
+    <style>
+        #target {width: 200px;height: 150px; border: #ccc 1px dashed;}
+        #target.dragover {border-color:#000;}
+        .item {width:50px;height:50px; display: inline-block; margin:5px;}
+    </style>
+</head>
+<body>
+<div class="item" style="background-color: red;" draggable="true"></div>
+<div class="item" style="background-color: blue;" draggable="true"></div>
+<div id="target"></div>
+<script>
+    const items = document.getElementsByClassName("item");
+    // устанавливаем обработчик перетаскивания элемента
+    for (item of items) {
+        item.addEventListener("dragstart", (e) => {
+            // в качестве перетаскиваемых данных устанавливаем html-код элемента
+            e.dataTransfer.setData("text/html", e.target.outerHTML);
+        });
+    }
+    const target = document.getElementById("target");
+    target.addEventListener("dragover", (e) => e.preventDefault());
+    // при заходе и выходе из целевой области меняем класс
+    target.addEventListener("dragenter", (e) => e.target.classList.add("dragover"));
+    target.addEventListener("dragleave", (e) => e.target.classList.remove("dragover"));
+    // при отпускании элемента добавляем его на целевую область
+    target.addEventListener("drop", (e) => {
+        e.srcElement.innerHTML += e.dataTransfer.getData("text/html");
+        e.target.classList.remove("dragover");
+    });
+</script>
+</body>
+</html>
