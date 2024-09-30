@@ -28,7 +28,7 @@ const Login = () => {
         setLoading(true);
         if (!email || !password) {
             toast({
-                title: "Please Fill all the Fields",
+                title: "Please Fill all Fields",
                 status: "warning",
                 duration: 5000,
                 isClosable: true,

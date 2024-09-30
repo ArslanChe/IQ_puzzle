@@ -26,7 +26,7 @@ const Signup = () => {
         setPicLoading(true);
         if (!name || !email || !password || !confirmPassword) {
             toast({
-                title: "Please Fill all the Fields",
+                title: "Please Fill all Fields",
                 status: "warning",
                 duration: 5000,
                 isClosable: true,
